@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+
+<html lang="id">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Kurs Mata Uang - RealTime Exchange</title>
+<link href="style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+
+</head>
+<body class="bg-background font-inter">
+<!-- Header -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-secondary-200">
+<div class="flex items-center justify-between px-4 py-3">
+<div class="flex items-center space-x-2">
+<div class="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
+<svg class="w-5 h-5 text-white" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+</svg>
+</div>
+<span class="text-lg font-semibold text-text-primary">RealTime Exchange</span>
+</div>
+<div class="flex items-center space-x-3">
+<button class="p-2 rounded-lg hover:bg-secondary-100 transition-colors">
+<svg class="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<button class="p-2 rounded-lg hover:bg-secondary-100 transition-colors" id="menuToggle">
+<svg class="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+</div>
+</header>
+<!-- Navigation Drawer -->
+<div class="fixed inset-0 z-40 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden" id="navigationDrawer">
+<div class="absolute inset-0 bg-black/50" id="drawerOverlay"></div>
+<div class="relative w-80 h-full bg-white shadow-xl">
+<div class="p-6">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-xl font-semibold text-text-primary">Menu</h2>
+<button class="p-2 rounded-lg hover:bg-secondary-100" id="closeDrawer">
+<svg class="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M6 18L18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 text-primary-600" href="currency_exchange_dashboard.html">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+</svg>
+<span class="font-medium">Dashboard</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600" href="currency_converter.html">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Konverter</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600" href="javascript:void(0)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Favorit</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600" href="javascript:void(0)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 17h5l-5 5v-5zM9 7H4l5-5v5zm6 10V7a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h9a1 1 0 001-1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Peringatan</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600" href="javascript:void(0)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Data Historis</span>
+</a>
+<a class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600" href="javascript:void(0)">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span>Pengaturan</span>
+</a>
+</nav>
+</div>
+</div>
+</div>
+<!-- Main Content -->
+<main class="pb-20 lg:pb-8">
+<!-- Auto-refresh Indicator -->
+<div class="px-4 py-3 bg-primary-50 border-b border-primary-100">
+<div class="flex items-center justify-between">
+<div class="flex items-center space-x-2">
+<div class="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
+<span class="text-sm text-primary-700" id="statusText">Memuat data...</span>
+</div>
+<span class="text-xs text-primary-600" id="lastUpdate">-</span>
+</div>
+</div>
+<!-- Currency Pairs Grid -->
+<section class="px-4 py-6">
+<div class="flex items-center justify-between mb-6">
+<h1 class="text-2xl font-semibold text-text-primary">Kurs Mata Uang</h1>
+<button class="flex items-center space-x-2 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors" id="refreshBtn">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-sm font-medium">Refresh</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="currencyGrid">
+<!-- Cards will be injected here by JS -->
+</div>
+</section>
+<!-- Currency Converter Widget -->
+<section class="px-4 py-6 bg-secondary-50">
+<div class="bg-white rounded-xl shadow-soft border border-secondary-200 p-6">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-xl font-semibold text-text-primary">Konverter Mata Uang</h2>
+<a class="text-primary-600 hover:text-primary-700 text-sm font-medium" href="currency_converter.html">
+                        Lihat Detail →
+                    </a>
+</div>
+<div class="space-y-4">
+<div class="space-y-2">
+<label class="text-sm font-medium text-secondary-600">Dari</label>
+<div class="flex space-x-3">
+<div class="flex-1">
+<input class="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-mono text-lg" id="fromAmount" placeholder="1.000" type="number" value="1"/>
+</div>
+<div class="w-32">
+<select class="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-medium" id="fromCurrency">
+<option value="USD">USD</option>
+<option value="EUR">EUR</option>
+<option value="SGD">SGD</option>
+<option value="MYR">MYR</option>
+<option value="JPY">JPY</option>
+<option value="GBP">GBP</option>
+</select>
+</div>
+</div>
+</div>
+<div class="flex justify-center">
+<button class="p-3 bg-primary-50 hover:bg-primary-100 rounded-full transition-colors" id="swapBtn">
+<svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+</div>
+<div class="space-y-2">
+<label class="text-sm font-medium text-secondary-600">Ke</label>
+<div class="flex space-x-3">
+<div class="flex-1">
+<input class="w-full px-4 py-3 border border-secondary-300 rounded-lg bg-secondary-50 font-mono text-lg text-text-primary" id="toAmount" readonly="" type="text"/>
+</div>
+<div class="w-32">
+<select class="w-full px-4 py-3 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-medium" id="toCurrency">
+<option value="IDR">IDR</option>
+<option value="USD">USD</option>
+<option value="EUR">EUR</option>
+<option value="SGD">SGD</option>
+</select>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-secondary-200">
+<p class="text-sm text-secondary-500 text-center" id="rateInfo">
+                            Memuat kurs...
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions -->
+<section class="px-4 py-6">
+<h2 class="text-xl font-semibold text-text-primary mb-4">Aksi Cepat</h2>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<button class="flex flex-col items-center space-y-3 p-6 bg-white rounded-xl shadow-soft border border-secondary-200 hover-lift">
+<div class="w-12 h-12 bg-accent-100 rounded-xl flex items-center justify-center">
+<svg class="w-6 h-6 text-accent-600" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+</svg>
+</div>
+<span class="text-sm font-medium text-text-primary text-center">Mata Uang Favorit</span>
+</button>
+<button class="flex flex-col items-center space-y-3 p-6 bg-white rounded-xl shadow-soft border border-secondary-200 hover-lift">
+<div class="w-12 h-12 bg-warning-100 rounded-xl flex items-center justify-center">
+<svg class="w-6 h-6 text-warning-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 17h5l-5 5v-5zM9 7H4l5-5v5zm6 10V7a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h9a1 1 0 001-1z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<span class="text-sm font-medium text-text-primary text-center">Peringatan Kurs</span>
+</button>
+<button class="flex flex-col items-center space-y-3 p-6 bg-white rounded-xl shadow-soft border border-secondary-200 hover-lift">
+<div class="w-12 h-12 bg-primary-100 rounded-xl flex items-center justify-center">
+<svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<span class="text-sm font-medium text-text-primary text-center">Data Historis</span>
+</button>
+<button class="flex flex-col items-center space-y-3 p-6 bg-white rounded-xl shadow-soft border border-secondary-200 hover-lift">
+<div class="w-12 h-12 bg-success-100 rounded-xl flex items-center justify-center">
+<svg class="w-6 h-6 text-success-600" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<span class="text-sm font-medium text-text-primary text-center">Ekspor Data</span>
+</button>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation (Mobile) -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-secondary-200 lg:hidden">
+<div class="grid grid-cols-4 gap-1">
+<a class="flex flex-col items-center py-3 px-2 text-primary-600 bg-primary-50" href="currency_exchange_dashboard.html">
+<svg class="w-5 h-5 mb-1" fill="currentColor" viewbox="0 0 24 24">
+<path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
+</svg>
+<span class="text-xs font-medium">Dashboard</span>
+</a>
+<a class="flex flex-col items-center py-3 px-2 text-secondary-500" href="currency_converter.html">
+<svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-xs">Konverter</span>
+</a>
+<a class="flex flex-col items-center py-3 px-2 text-secondary-500" href="javascript:void(0)">
+<svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-xs">Favorit</span>
+</a>
+<a class="flex flex-col items-center py-3 px-2 text-secondary-500" href="javascript:void(0)">
+<svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+<path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="text-xs">Pengaturan</span>
+</a>
+</div>
+</nav>
+
+
+<script src="script.js"></script></body>
+</html>
