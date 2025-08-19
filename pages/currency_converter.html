@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Konverter Mata Uang - RealTime Exchange</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Frealtimee5858back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.6"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-secondary-200">
+        <div class="flex items-center justify-between px-4 py-3">
+            <!-- Logo -->
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                </div>
+                <span class="text-lg font-semibold text-text-primary">RealTime Exchange</span>
+            </div>
+            
+            <!-- Header Actions -->
+            <div class="flex items-center space-x-3">
+                <!-- Search Button -->
+                <button class="p-2 rounded-lg hover:bg-secondary-100 transition-colors">
+                    <svg class="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                    </svg>
+                </button>
+                
+                <!-- Menu Button -->
+                <button id="menuToggle" class="p-2 rounded-lg hover:bg-secondary-100 transition-colors">
+                    <svg class="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Drawer -->
+    <div id="navigationDrawer" class="fixed inset-0 z-40 transform -translate-x-full transition-transform duration-300 ease-in-out lg:hidden">
+        <div class="absolute inset-0 bg-black/50" id="drawerOverlay"></div>
+        <div class="relative w-80 h-full bg-white shadow-xl">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-xl font-semibold text-text-primary">Menu</h2>
+                    <button id="closeDrawer" class="p-2 rounded-lg hover:bg-secondary-100">
+                        <svg class="w-5 h-5 text-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <nav class="space-y-2">
+                    <a href="currency_exchange_dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                        </svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="currency_converter.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-primary-50 text-primary-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                        </svg>
+                        <span class="font-medium">Konverter</span>
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                        <span>Favorit</span>
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5zM9 7H4l5-5v5zm6 10V7a1 1 0 00-1-1H5a1 1 0 00-1 1v10a1 1 0 001 1h9a1 1 0 001-1z"/>
+                        </svg>
+                        <span>Peringatan</span>
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        </svg>
+                        <span>Data Historis</span>
+                    </a>
+                    <a href="javascript:void(0)" class="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-secondary-100 text-secondary-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                        <span>Pengaturan</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pb-20 lg:pb-8">
+        <!-- Breadcrumb Navigation -->
+        <div class="px-4 py-3 bg-secondary-50 border-b border-secondary-200">
+            <nav class="flex items-center space-x-2 text-sm">
+                <a href="currency_exchange_dashboard.html" class="text-primary-600 hover:text-primary-700 font-medium">Dashboard</a>
+                <svg class="w-4 h-4 text-secondary-400" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                </svg>
+                <span class="text-secondary-600">Konverter</span>
+            </nav>
+        </div>
+
+        <!-- Page Header -->
+        <section class="px-4 py-6">
+            <div class="flex items-center justify-between mb-2">
+                <h1 class="text-2xl font-semibold text-text-primary">Konverter Mata Uang</h1>
+                <div class="flex items-center space-x-2">
+                    <div class="w-2 h-2 bg-success-500 rounded-full animate-pulse"></div>
+                    <span class="text-sm text-success-600">Live</span>
+                </div>
+            </div>
+            <p class="text-secondary-500">Konversi mata uang dengan kurs real-time terkini</p>
+        </section>
+
+        <!-- Currency Converter -->
+        <section class="px-4 pb-6">
+            <div class="bg-white rounded-xl shadow-soft border border-secondary-200 p-6">
+                <!-- From Currency -->
+                <div class="space-y-3 mb-6">
+                    <label class="text-sm font-medium text-secondary-600">Dari</label>
+                    <div class="space-y-3">
+                        <!-- Currency Selector -->
+                        <div class="relative">
+                            <select id="fromCurrency" class="w-full px-4 py-4 pr-12 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-medium text-lg appearance-none bg-white">
+                                <option value="USD" data-flag="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">USD - Dolar Amerika</option>
+                                <option value="EUR" data-flag="https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png">EUR - Euro</option>
+                                <option value="SGD" data-flag="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">SGD - Dolar Singapura</option>
+                                <option value="MYR" data-flag="https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">MYR - Ringgit Malaysia</option>
+                                <option value="JPY" data-flag="https://images.pixabay.com/photo-2018/01/17/07/06/japan-3087825_1280.jpg">JPY - Yen Jepang</option>
+                                <option value="GBP" data-flag="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">GBP - Pound Sterling</option>
+                            </select>
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                <svg class="w-5 h-5 text-secondary-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Amount Input -->
+                        <div class="relative">
+                            <input type="number" id="fromAmount" placeholder="0" value="1000" class="w-full px-4 py-6 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-mono text-3xl text-center" />
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                <img id="fromFlag" src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Currency Flag" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="flex justify-center mb-6">
+                    <button id="swapButton" class="p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-medium hover-lift transition-all duration-250">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- To Currency -->
+                <div class="space-y-3 mb-6">
+                    <label class="text-sm font-medium text-secondary-600">Ke</label>
+                    <div class="space-y-3">
+                        <!-- Currency Selector -->
+                        <div class="relative">
+                            <select id="toCurrency" class="w-full px-4 py-4 pr-12 border border-secondary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 font-medium text-lg appearance-none bg-white">
+                                <option value="IDR" data-flag="https://images.pexels.com/photos/8828596/pexels-photo-8828596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" selected>IDR - Rupiah Indonesia</option>
+                                <option value="USD" data-flag="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">USD - Dolar Amerika</option>
+                                <option value="EUR" data-flag="https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png">EUR - Euro</option>
+                                <option value="SGD" data-flag="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">SGD - Dolar Singapura</option>
+                                <option value="MYR" data-flag="https://images.pexels.com/photos/1029604/pexels-photo-1029604.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">MYR - Ringgit Malaysia</option>
+                                <option value="JPY" data-flag="https://images.pixabay.com/photo-2018/01/17/07/06/japan-3087825_1280.jpg">JPY - Yen Jepang</option>
+                                <option value="GBP" data-flag="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">GBP - Pound Sterling</option>
+                            </select>
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                                <svg class="w-5 h-5 text-secondary-400" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7 10l5 5 5-5z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        
+                        <!-- Result Display -->
+                        <div class="relative">
+                            <input type="text" id="toAmount" readonly value="15.847.500" class="w-full px-4 py-6 border border-secondary-300 rounded-lg bg-secondary-50 font-mono text-3xl text-center text-text-primary" />
+                            <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                                <img id="toFlag" src="https://images.pexels.com/photos/8828596/pexels-photo-8828596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Currency Flag" class="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm" onerror="this.src='https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png'; this.onerror=null;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Exchange Rate Info -->
+                <div class="bg-primary-50 rounded-lg p-4 text-center">
+                    <p class="text-sm text-primary-700 mb-1">
+                        <span id="rateDisplay">1 USD = 15.847,50 IDR</span>
+                    </p>
+                    <p class="text-xs text-primary-600">
+                        Terakhir diperbarui: 18/08/2025 17:04
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Amount Buttons -->
+        <section class="px-4 pb-6">
+            <div class="bg-white rounded-xl shadow-soft border border-secondary-200 p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-4">Jumlah Cepat</h3>
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+                    <button class="quick-amount-btn px-4 py-3 border border-secondary-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors font-mono font-medium" data-amount="100">
+                        100
+                    </button>
+                    <button class="quick-amount-btn px-4 py-3 border border-secondary-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors font-mono font-medium" data-amount="500">
+                        500
+                    </button>
+                    <button class="quick-amount-btn px-4 py-3 border border-secondary-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors font-mono font-medium" data-amount="1000">
+                        1.000
+                    </button>
+                    <button class="quick-amount-btn px-4 py-3 border border-secondary-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors font-mono font-medium" data-amount="5000">
+                        5.000
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Rate Comparison Table -->
+        <section class="px-4 pb-6">
+            <div class="bg-white rounded-xl shadow-soft border border-secondary-200 p-6">
+                <h3 class="text-lg font-semibold text-text-primary mb-4">Perbandingan Kurs</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-secondary-200">
+                                <th class="text-left py-3 text-sm font-medium text-secondary-600">Periode</th>
+                                <th class="text-right py-3 text-sm font-medium text-secondary-600">Kurs</th>
+                                <th class="text-right py-3 text-sm font-medium text-secondary-600">Perubahan</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-secondary-100">
+                            <tr>
+                                <td class="py-3 text-sm text-text-primary">1 Jam</td>
+                                <td class="py-3 text-right font-mono text-sm text-text-primary">15.847,50</td>
+                                <td class="py-3 text-right">
+                                    <div class="flex items-center justify-end space-x-1">
+                                        <svg class="w-4 h-4 text-success-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M7 14l5-5 5 5z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-success-600">+0.12%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-sm text-text-primary">24 Jam</td>
+                                <td class="py-3 text-right font-mono text-sm text-text-primary">15.808,88</td>
+                                <td class="py-3 text-right">
+                                    <div class="flex items-center justify-end space-x-1">
+                                        <svg class="w-4 h-4 text-success-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M7 14l5-5 5 5z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-success-600">+0.25%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 text-sm text-text-primary">7 Hari</td>
+                                <td class="py-3 text-right font-mono text-sm text-text-primary">15.723,15</td>
+                                <td class="py-3 text-right">
+                                    <div class="flex items-center justify-end space-x-1">
+                                        <svg class="w-4 h-4 text-success-600" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M7 14l5-5 5 5z"/>
+                                        </svg>
+                                        <span class="text-sm font-medium text-success-600">+0.79%</span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Conversions -->
+        <section class="px-4 pb-6">
+            <div class="bg-white rounded-xl shadow-soft border border-secondary-200 p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-text-primary">Konversi Terakhir</h3>
+                    <button class="text-sm text-primary-600 hover:text-primary-700 font-medium">
+                        Hapus Semua
+                    </button>
+                </div>
+                
+                <div class="space-y-3">
+                    <!-- Recent Conversion Item -->
+                    <div class="flex items-center justify-between p-4 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors cursor-pointer" onclick="loadConversion('USD', 'IDR', 1000)">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex -space-x-1">
+                                <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="USD" class="w-6 h-6 rounded-full object-cover border border-white" onerror="this.src='https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                                <img src="https://images.pexels.com/photos/8828596/pexels-photo-8828596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="IDR" class="w-6 h-6 rounded-full object-cover border border-white" onerror="this.src='https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png'; this.onerror=null;" />
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-text-primary">1.000 USD → 15.847.500 IDR</p>
+                                <p class="text-xs text-secondary-500">2 menit yang lalu</p>
+                            </div>
+                        </div>
+                        <svg class="w-4 h-4 text-secondary-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                        </svg>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors cursor-pointer" onclick="loadConversion('EUR', 'IDR', 500)">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex -space-x-1">
+                                <img src="https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png" alt="EUR" class="w-6 h-6 rounded-full object-cover border border-white" onerror="this.src='https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=2126&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                <img src="https://images.pexels.com/photos/8828596/pexels-photo-8828596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="IDR" class="w-6 h-6 rounded-full object-cover border border-white" onerror="this.src='https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png'; this.onerror=null;" />
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-text-primary">500 EUR → 8.617.375 IDR</p>
+                                <p class="text-xs text-secondary-500">15 menit yang lalu</p>
+                            </div>
+                        </div>
+                        <svg class="w-4 h-4 text-secondary-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                        </svg>
+                    </div>
+
+                    <div class="flex items-center justify-between p-4 bg-secondary-50 rounded-lg hover:bg-secondary-100 transition-colors cursor-pointer" onclick="loadConversion('SGD', 'IDR', 200)">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex -space-x-1">
+                                <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="SGD" class="w-6 h-6 rounded-full object-cover border border-white" onerror="this.src='https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'; this.onerror=null;" />
+                                <img src="https://images.pexels.com/photos/8828596/pexels-photo-8828596.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="IDR" class="w-6 h-6 rounded-full object-cover border border-white" onerror="this.src='https://images.pixabay.com/photo-2013/07/13/11/45/flag-158392_1280.png'; this.onerror=null;" />
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-text-primary">200 SGD → 2.338.450 IDR</p>
+                                <p class="text-xs text-secondary-500">1 jam yang lalu</p>
+                            </div>
+                        </div>
+                        <svg class="w-4 h-4 text-secondary-400" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Bottom Navigation (Mobile) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-secondary-200 lg:hidden">
+        <div class="grid grid-cols-4 gap-1">
+            <a href="currency_exchange_dashboard.html" class="flex flex-col items-center py-3 px-2 text-secondary-500">
+                <svg class="w-5 h-5 mb-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+                <span class="text-xs">Dashboard</span>
+            </a>
+            <a href="currency_converter.html" class="flex flex-col items-center py-3 px-2 text-primary-600 bg-primary-50">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/>
+                </svg>
+                <span class="text-xs font-medium">Konverter</span>
+            </a>
+            <a href="javascript:void(0)" class="flex flex-col items-center py-3 px-2 text-secondary-500">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+                <span class="text-xs">Favorit</span>
+            </a>
+            <a href="javascript:void(0)" class="flex flex-col items-center py-3 px-2 text-secondary-500">
+                <svg class="w-5 h-5 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                <span class="text-xs">Pengaturan</span>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Navigation Drawer Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navigationDrawer = document.getElementById('navigationDrawer');
+        const closeDrawer = document.getElementById('closeDrawer');
+        const drawerOverlay = document.getElementById('drawerOverlay');
+
+        function openDrawer() {
+            navigationDrawer.classList.remove('-translate-x-full');
+        }
+
+        function closeDrawerFunc() {
+            navigationDrawer.classList.add('-translate-x-full');
+        }
+
+        menuToggle.addEventListener('click', openDrawer);
+        closeDrawer.addEventListener('click', closeDrawerFunc);
+        drawerOverlay.addEventListener('click', closeDrawerFunc);
+
+        // Exchange rates data
+        const exchangeRates = {
+            'USD': 15847.50,
+            'EUR': 17234.75,
+            'SGD': 11692.25,
+            'MYR': 3547.80,
+            'JPY': 106.45,
+            'GBP': 20156.90,
+            'IDR': 1
+        };
+
+        // Currency converter elements
+        const fromCurrency = document.getElementById('fromCurrency');
+        const toCurrency = document.getElementById('toCurrency');
+        const fromAmount = document.getElementById('fromAmount');
+        const toAmount = document.getElementById('toAmount');
+        const fromFlag = document.getElementById('fromFlag');
+        const toFlag = document.getElementById('toFlag');
+        const rateDisplay = document.getElementById('rateDisplay');
+        const swapButton = document.getElementById('swapButton');
+
+        // Update flag images
+        function updateFlags() {
+            const fromOption = fromCurrency.options[fromCurrency.selectedIndex];
+            const toOption = toCurrency.options[toCurrency.selectedIndex];
+            
+            fromFlag.src = fromOption.dataset.flag;
+            toFlag.src = toOption.dataset.flag;
+        }
+
+        // Calculate conversion
+        function updateConversion() {
+            const amount = parseFloat(fromAmount.value) || 0;
+            const fromRate = exchangeRates[fromCurrency.value] || 1;
+            const toRate = exchangeRates[toCurrency.value] || 1;
+            
+            let result;
+            if (fromCurrency.value === 'IDR') {
+                result = amount / toRate;
+            } else if (toCurrency.value === 'IDR') {
+                result = amount * fromRate;
+            } else {
+                result = (amount * fromRate) / toRate;
+            }
+            
+            toAmount.value = result.toLocaleString('id-ID', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 2
+            });
+
+            // Update rate display
+            updateRateDisplay();
+            updateFlags();
+        }
+
+        // Update rate display
+        function updateRateDisplay() {
+            const fromRate = exchangeRates[fromCurrency.value] || 1;
+            const toRate = exchangeRates[toCurrency.value] || 1;
+            
+            let rate;
+            if (fromCurrency.value === 'IDR') {
+                rate = (1 / toRate).toLocaleString('id-ID', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 6
+                });
+                rateDisplay.textContent = `1 ${fromCurrency.value} = ${rate} ${toCurrency.value}`;
+            } else if (toCurrency.value === 'IDR') {
+                rate = fromRate.toLocaleString('id-ID', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+                rateDisplay.textContent = `1 ${fromCurrency.value} = ${rate} ${toCurrency.value}`;
+            } else {
+                rate = (fromRate / toRate).toLocaleString('id-ID', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 6
+                });
+                rateDisplay.textContent = `1 ${fromCurrency.value} = ${rate} ${toCurrency.value}`;
+            }
+        }
+
+        // Swap currencies
+        function swapCurrencies() {
+            const fromValue = fromCurrency.value;
+            const toValue = toCurrency.value;
+            const fromAmountValue = fromAmount.value;
+            const toAmountValue = toAmount.value;
+            
+            fromCurrency.value = toValue;
+            toCurrency.value = fromValue;
+            fromAmount.value = toAmountValue.replace(/[.,]/g, '');
+            
+            updateConversion();
+            
+            // Add animation
+            swapButton.classList.add('spring-bounce');
+            setTimeout(() => {
+                swapButton.classList.remove('spring-bounce');
+            }, 500);
+        }
+
+        // Quick amount buttons
+        const quickAmountButtons = document.querySelectorAll('.quick-amount-btn');
+        quickAmountButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const amount = button.dataset.amount;
+                fromAmount.value = amount;
+                updateConversion();
+                
+                // Visual feedback
+                button.classList.add('rate-update');
+                setTimeout(() => {
+                    button.classList.remove('rate-update');
+                }, 300);
+            });
+        });
+
+        // Load conversion from recent history
+        function loadConversion(from, to, amount) {
+            fromCurrency.value = from;
+            toCurrency.value = to;
+            fromAmount.value = amount;
+            updateConversion();
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Event listeners
+        fromCurrency.addEventListener('change', updateConversion);
+        toCurrency.addEventListener('change', updateConversion);
+        fromAmount.addEventListener('input', updateConversion);
+        swapButton.addEventListener('click', swapCurrencies);
+
+        // Initialize
+        updateConversion();
+
+        // Auto-refresh rates simulation
+        function refreshRates() {
+            // Simulate small rate fluctuations
+            Object.keys(exchangeRates).forEach(currency => {
+                if (currency !== 'IDR') {
+                    const fluctuation = (Math.random() - 0.5) * 0.02; // ±1% fluctuation
+                    exchangeRates[currency] *= (1 + fluctuation);
+                }
+            });
+            
+            updateConversion();
+            
+            // Visual feedback
+            document.querySelector('.bg-primary-50').classList.add('rate-update');
+            setTimeout(() => {
+                document.querySelector('.bg-primary-50').classList.remove('rate-update');
+            }, 300);
+        }
+
+        // Refresh rates every 30 seconds
+        setInterval(refreshRates, 30000);
+
+        // Format number input
+        fromAmount.addEventListener('blur', function() {
+            const value = parseFloat(this.value);
+            if (!isNaN(value)) {
+                this.value = value;
+            }
+        });
+
+        // Prevent negative values
+        fromAmount.addEventListener('input', function() {
+            if (this.value < 0) {
+                this.value = 0;
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
